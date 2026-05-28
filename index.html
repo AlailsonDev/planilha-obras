@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obras Públicas — Jaboatão dos Guararapes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- <header>
+    <div class="header-inner">
+      <div class="logo-mark">TC</div>
+      <div class="logo-text">TCEPE <span>Obras</span></div>
+      <nav><a href="index.html">Início</a></nav>
+    </div>
+  </header> -->
+
+  <div class="page-wrapper">
+
+    <!-- <section class="page-hero">
+      <h1>Obras <em id="em1">Públicas</em><br />Jaboatão dos Guararapes</h1>
+      <p>Acompanhe a execução das obras públicas do município via RemessaTCEPE.</p>
+    </section> -->
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total de Obras / Serviços de Engenharia</div>
+        <div class="stat-value" id="total-obras">—</div>
+      </div>  
+      <div class="stat-card">
+        <div class="stat-label">Obras Paralisadas</div>
+        <div class="stat-value" id="total-paralisadas">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Investido</div>
+        <div class="stat-value" id="total-investido">—</div>
+      </div>
+    </div>
+
+    <!-- Barra de filtros -->
+    <div class="filtro-bar">
+      <div class="filtro-grupo">
+        <label class="filtro-label">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+          </svg>
+          Situação
+        </label>
+        <select id="filtro-situacao" class="filtro-select filtro-select-sm">
+          <option value="">Todas</option>
+        </select>
+      </div>
+
+      <div class="filtro-grupo">
+        <label class="filtro-label">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9h18M3 15h12M3 21h6" />
+          </svg>
+          Secretaria
+        </label>
+        <select id="filtro-secretaria" class="filtro-select filtro-select-md">
+          <option value="">Todas</option>
+        </select>
+      </div>
+
+      <div class="filtro-grupo">
+        <label class="filtro-label">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" />
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+          </svg>
+          Empresa contratada
+        </label>
+        <select id="filtro-empresa" class="filtro-select filtro-select-md">
+          <option value="">Todas</option>
+        </select>
+      </div>
+
+      <div class="filtro-grupo">
+        <label class="filtro-label">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M7 12h10M11 18h2" />
+          </svg>
+          Ordenar por
+        </label>
+        <select id="filtro-ordenar" class="filtro-select filtro-select-lg">
+          <option value="valorMedido_desc">Maior valor medido</option>
+          <option value="valorMedido_asc">Menor valor medido</option>
+          <option value="valorPago_desc">Maior valor pago</option>
+          <option value="valorPago_asc">Menor valor pago</option>
+          <option value="inicio_desc">Início — mais recente</option>
+          <option value="inicio_asc">Início — mais antigo</option>
+          <option value="conclusao_desc">Conclusão — mais recente</option>
+          <option value="conclusao_asc">Conclusão — mais antiga</option>
+          <option value="secretaria_asc">Secretaria — A a Z</option>
+          <option value="empresa_asc">Empresa — A a Z</option>
+        </select>
+      </div>
+
+      <div class="filtro-direita">
+        <span class="filtro-contador" id="filtro-contador"></span>
+        <span class="filtro-loading-empresas" id="loading-empresas" style="display:none">Carregando empresas…</span>
+        <button id="btn-limpar-filtros" class="btn-limpar">✕ Limpar filtros</button>
+      </div>
+    </div>
+
+    <!-- Botões de exportação -->
+    <div class="export-bar">
+      <button id="btn-exportar-csv" class="btn-export btn-export-csv" title="Exportar para CSV">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        <span>CSV</span>
+      </button>
+      <button id="btn-exportar-excel" class="btn-export btn-export-excel" title="Exportar para Excel">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+          <line x1="8" y1="9" x2="16" y2="9" />
+          <line x1="8" y1="13" x2="16" y2="13" />
+          <line x1="8" y1="17" x2="12" y2="17" />
+        </svg>
+        <span>Excel</span>
+      </button>
+    </div>
+
+    <!-- Tabela principal -->
+    <div class="section-head">
+      <h2>Todas as Obras</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table class="tabela-obras">
+        <thead>
+          <tr>
+            <th>Objeto</th>
+            <th>Secretaria</th>
+            <th>Empresa contratada</th>
+            <th>Situação</th>
+            <th>Início</th>
+            <th>Conclusão</th>
+            <th style="text-align:right">Valor Pago</th>
+            <th style="text-align:right">Valor Medido</th>
+            <th>Progresso</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="obras-tbody">
+          <tr class="loading-row">
+            <td colspan="10">
+              <div class="spinner"></div>
+              Carregando obras e secretarias…
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="empty-state" id="sem-obras"></p>
+    </div>
+
+    <!-- Obras paralisadas -->
+    <div class="section-head">
+      <h2>Obras Paralisadas</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table class="tabela-paralisadas">
+        <thead>
+          <tr>
+            <th>Objeto</th>
+            <th>Secretaria</th>
+            <th>Empresa contratada</th>
+            <th>Situação</th>
+            <th>Data de Início</th>
+            <th style="text-align:right">Valor Pago</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="paralisadas-tbody">
+          <tr class="loading-row">
+            <td colspan="7">
+              <div class="spinner"></div>
+              Verificando obras paralisadas…
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="empty-state" id="sem-paralisadas">Não existem obras paralisadas.</p>
+    </div>
+
+  </div>
+
+  <script type="module" src="obras.js"></script>
+</body>
+
+</html>

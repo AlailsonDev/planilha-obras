@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalhes da Obra — TCEPE</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+  <!-- <header>
+    <div class="header-inner">
+      <div class="logo-mark">TC</div>
+      <div class="logo-text">TCEPE <span>Obras</span></div>
+      <nav><a href="index.html">← Voltar</a></nav>
+    </div>
+  </header> -->
+
+  <div class="page-wrapper">
+
+    <a href="index.html" class="btn-voltar">← Voltar para lista de obras</a>
+
+    <!-- Hero da obra -->
+    <section class="detalhe-hero">
+      <h1 id="obra-titulo">Carregando…</h1>
+      <p id="obra-subtitulo" class="obra-subtitulo" style="display:none"></p>
+      <div class="detalhe-meta">
+        <span>Situação: <span id="obra-situacao">—</span></span>
+        <span>ID: <strong id="obra-id">—</strong></span>
+        <span>Instrumento: <strong id="obra-instrumento">—</strong></span>
+      </div>
+      <div class="detalhe-meta" style="margin-top:6px">
+        <span>📍 <span id="obra-endereco" style="color:var(--text-muted)">—</span></span>
+      </div>
+    </section>
+
+    <!-- Secretaria e empresa contratada -->
+    <div class="detalhe-grid detalhe-grid-contrato">
+      <div class="detalhe-card">
+        <div class="card-label">Secretaria responsável</div>
+        <div class="card-value card-value-sm" id="obra-secretaria">—</div>
+        <div class="card-sub" id="obra-secretaria-fonte"></div>
+      </div>
+      <div class="detalhe-card card-accent">
+        <div class="card-label">Empresa contratada</div>
+        <div class="card-value card-value-sm" id="obra-empresa">—</div>
+        <div class="card-sub" id="obra-empresa-doc"></div>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="detalhe-grid">
+      <div class="detalhe-card">
+        <div class="card-label">Data de Início</div>
+        <div class="card-value" id="obra-inicio">—</div>
+      </div>
+      <div class="detalhe-card">
+        <div class="card-label">Previsão de Conclusão</div>
+        <div class="card-value" id="obra-conclusao">—</div>
+      </div>
+      <div class="detalhe-card card-accent">
+        <div class="card-label">Total Medido</div>
+        <div class="card-value" id="obra-medido">—</div>
+      </div>
+      <div class="detalhe-card card-accent">
+        <div class="card-label">Total Pago</div>
+        <div class="card-value" id="obra-pago">—</div>
+      </div>
+    </div>
+
+    <!-- Progresso -->
+    <div id="obra-progresso"></div>
+
+    <!-- Mapa -->
+    <section class="section-mapa">
+      <div class="section-head">
+        <h2>Localização da Obra</h2>
+        <span class="section-badge">mapa</span>
+      </div>
+
+      <div id="mapa-container" style="display:none">
+        <div id="mapa"></div>
+      </div>
+
+      <p class="empty-state" id="sem-geometria" style="display:none">
+        Localização da obra não informada.
+      </p>
+
+      <div id="loading-mapa" class="mapa-loading">
+        <div class="spinner"></div>
+        <span>Carregando mapa…</span>
+      </div>
+    </section>
+
+
+
+    <!-- Documentos -->
+    <section id="section-docs" style="display:none; margin-bottom: 48px;">
+      <div class="section-head">
+        <h2>Documentos</h2>
+        <span class="section-badge">downloads</span>
+      </div>
+      <div id="loading-docs" class="mapa-loading">
+        <div class="spinner"></div>
+        <span>Carregando documentos…</span>
+      </div>
+      <div id="docs-grid" class="docs-grid"></div>
+      <p class="empty-state" id="sem-docs" style="display:none">
+        Nenhum documento disponível para esta obra.
+      </p>
+    </section>
+
+    <!-- Itens do contrato -->
+    <section id="section-itens" style="display:none; margin-bottom: 48px;">
+      <div class="section-head">
+        <h2>Itens do Contrato</h2>
+        <span class="section-badge">quantitativos</span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="tabela-itens">
+          <thead>
+            <tr>
+              <th style="width:44px">#</th>
+              <th>Descrição</th>
+              <th style="text-align:center">Unid.</th>
+              <th style="text-align:right">Qtd.</th>
+              <th style="text-align:right">Preço Unit.</th>
+              <th style="text-align:right">Total Contratado</th>
+            </tr>
+          </thead>
+          <tbody id="itens-tbody">
+            <tr id="loading-itens" class="loading-row">
+              <td colspan="6">
+                <div class="spinner"></div>
+                Carregando itens do contrato…
+              </td>
+            </tr>
+          </tbody>
+          <tfoot id="itens-tfoot"></tfoot>
+        </table>
+        <p class="empty-state" id="sem-itens" style="display:none">
+          Nenhum item encontrado para este contrato.
+        </p>
+      </div>
+    </section>
+
+    <!-- Execução financeira -->
+    <div class="section-head">
+      <h2>Execução Financeira</h2>
+      <span class="section-badge">mensal</span>
+    </div>
+
+    <div class="table-wrap" style="margin-bottom: 48px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Mês / Ano</th>
+            <th style="text-align:right">Valor Medido</th>
+            <th style="text-align:right">Valor Pago</th>
+          </tr>
+        </thead>
+        <tbody id="execucao-tbody">
+          <tr id="loading-execucao" class="loading-row">
+            <td colspan="3">
+              <div class="spinner"></div>
+              Carregando execução…
+            </td>
+          </tr>
+        </tbody>
+        <tfoot id="execucao-tfoot"></tfoot>
+      </table>
+      <p class="empty-state" id="sem-execucao" style="display:none">
+        Nenhum dado de execução encontrado.
+      </p>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" src="detalheObra.js"></script>
+</body>
+</html>
