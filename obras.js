@@ -10,7 +10,7 @@ let filtros = {
   ordenar: "valorMedido_desc",
 };
 
-const NAO_INFORMADO = "Não informada";
+const NAO_INFORMADO = "Prefeitura Municipal do Jaboatão dos Guararapes.";
 
 function labelSecretaria(o) {
   return o.secretariaNome?.trim() || NAO_INFORMADO;
